@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const login = async (email, password) => {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) throw new ErrorHandler(404, 'The email or password is incorrect');
 
