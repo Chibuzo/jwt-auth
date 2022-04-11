@@ -14,7 +14,7 @@ const login = async (email, password) => {
     if (!match) throw new ErrorHandler(400, 'Email and password doesn\'t match');
 
     const payload = {
-        id: user._id,
+        id: user.id,
         email: user.email,
         fullname: user.fullname,
     };
@@ -23,7 +23,7 @@ const login = async (email, password) => {
         code: 200,
         user: {
             token,
-            id: user._id,
+            id: user.id,
             fullname: user.fullname
         },
         message: 'Logged in'
@@ -41,12 +41,12 @@ const register = async (user) => {
     return newuser;
 }
 
-const view = async (id, field = 'thumb') => {
-    return User.findById(id).select(user_fields[field]).lean();
+const view = async (criteria) => {
+    return User.findOne({ where: criteria });
 }
 
 const list = async (criteria = {}) => {
-    return User.find(criteria).select(user_fields[field]).lean();
+    return User.findAll({ ...criteria, raw: true });
 }
 
 module.exports = {

@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false
         }
     }, {
+        tableName: 'users',
         indexes: [
             { unique: true, fields: ['email'] },
         ]
